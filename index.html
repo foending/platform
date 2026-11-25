@@ -4,482 +4,383 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <meta name="theme-color" content="#201c1b">
+  <meta name="theme-color" content="#fff7ed">
   <title>fønding</title>
   <style>
     :root {
-      color-scheme: dark;
-      --ink: #fffaf3;
-      --muted: #c7bfb7;
-      --accent: #ffad68;
-      --accent-deep: #ec814a;
-      --glass: #ffffff0c;
-      --border: #ffffff26;
-      --ease: cubic-bezier(.22,.8,.22,1);
+      color-scheme: light;
+      --ink: #302923;
+      --muted: #817266;
+      --accent: #d87535;
+      --accent-dark: #a94d19;
+      --border: #e8d8c9;
+      --glass: rgba(255,255,255,.65);
+      --ease: cubic-bezier(.2,.75,.25,1);
     }
     * { box-sizing: border-box }
     body {
-      margin: 0;
-      min-height: 100svh;
-      background: #171b1b;
-      color: var(--ink);
-      font-family: "Avenir Next", "Century Gothic", "URW Gothic", "Trebuchet MS", sans-serif;
-      -webkit-font-smoothing: antialiased;
-      font-synthesis: none;
-      overflow-x: clip;
+      margin: 0; min-height: 100svh; color: var(--ink);
+      font-family: "Avenir Next", "Inter", "Segoe UI", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased; font-synthesis: none;
+      background: radial-gradient(ellipse at 90% 16%, #f8b97c75, transparent 40%),
+        radial-gradient(ellipse at 10% 82%, #fbd1ac90, transparent 38%),
+        radial-gradient(ellipse at 70% 95%, #eec7a044, transparent 55%),
+        linear-gradient(123deg, #f9eee1, #fffaf4 52%, #f7e7d5);
+      background-attachment: fixed;
     }
-    body::before, body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: -1;
-    }
-    body::before {
-      background:
-        radial-gradient(ellipse at 78% 24%, #e0a46b75 0%, #98725020 24%, transparent 50%),
-        radial-gradient(ellipse at 4% 55%, #cf863f66 0%, transparent 32%),
-        radial-gradient(ellipse at 87% 87%, #a75f343b 0%, transparent 39%),
-        radial-gradient(ellipse at 17% 8%, #34585885 0%, transparent 40%),
-        radial-gradient(ellipse at 55% 100%, #44605b60 0%, transparent 51%),
-        linear-gradient(120deg, #142021, #252220 45%, #171a1b 100%);
-      background-size: cover;
-    }
-    body::after {
-      background: radial-gradient(ellipse at center, transparent 38%, #090b0b66);
-    }
-    button, input { font: inherit }
+    button, input, select { font: inherit }
     button { cursor: pointer; -webkit-tap-highlight-color: transparent }
-    button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px }
-    button:disabled { opacity: .42; cursor: not-allowed }
-    .stage {
-      min-height: 100svh;
-      display: grid;
-      place-items: center;
-      padding: 32px 22px;
-    }
+    button, a, input, select { -webkit-tap-highlight-color: transparent }
+    :focus-visible { outline: 2px solid var(--accent-dark); outline-offset: 4px }
+    button:disabled { opacity: .45; cursor: not-allowed }
+    .stage { min-height: 100svh; display: grid; place-items: center; padding: 32px 18px }
     .shell {
-      width: min(100%, 506px);
-      min-height: min(740px, calc(100svh - 64px));
-      padding: 34px 38px 28px;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      border: 1px solid #ffffff39;
-      border-radius: 34px;
-      background: linear-gradient(135deg, #ffffff14, #ffffff06 52%, #ddc1a411), #201e1d57;
-      backdrop-filter: blur(34px) saturate(116%);
-      -webkit-backdrop-filter: blur(34px) saturate(116%);
-      box-shadow: inset 0 1px 0 #ffffff36, inset 0 -1px 0 #ffffff0e, 0 28px 90px #080a0b5e;
-      isolation: isolate;
+      width: min(100%, 510px); min-height: min(668px, calc(100svh - 64px));
+      position: relative; display: flex; flex-direction: column; padding: 34px 35px 29px;
+      border: 1px solid #ffffffc4; border-radius: 34px;
+      background: linear-gradient(140deg, #ffffffcf, #ffffff6b 60%, #ffecd35e);
+      backdrop-filter: blur(28px) saturate(125%); -webkit-backdrop-filter: blur(28px) saturate(125%);
+      box-shadow: inset 0 1px 0 #fff, inset 0 -1px 0 #ffffff8a, 0 24px 80px #81522b19, 0 4px 14px #7c4d2510;
     }
-    header { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 32px }
-    .brand { font-size: 28px; font-weight: 750; letter-spacing: -1.8px; color: var(--ink); line-height: 1 }
+    header { display: flex; align-items: center; justify-content: space-between; min-height: 33px }
+    .brand { font-size: 29px; font-weight: 800; letter-spacing: -1.8px; line-height: 1 }
     .brand span { color: var(--accent) }
-    .progress { display: flex; gap: 4px; width: 100px }
-    .progress span { flex: 1; height: 3px; border-radius: 9px; background: #ffffff22; transition: background .35s, box-shadow .35s }
-    .progress .complete { background: var(--accent); box-shadow: 0 0 11px #ffab6760 }
-    .progress[hidden] { display: none }
-    main { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 42px 0 18px; min-width: 0 }
-    .step { width: 100%; animation: arrive .48s var(--ease) both }
-    .step.reverse { animation-name: arrive-back }
-    .step.exiting { pointer-events: none; animation: leave .19s ease-in both }
-    .step.exiting.reverse { animation-name: leave-back }
-    @keyframes arrive { from { opacity: 0; transform: translateX(24px) scale(.99); filter: blur(3px) } to { opacity: 1; transform: none; filter: none } }
-    @keyframes arrive-back { from { opacity: 0; transform: translateX(-24px) scale(.99); filter: blur(3px) } to { opacity: 1; transform: none; filter: none } }
-    @keyframes leave { to { opacity: 0; transform: translateX(-20px); filter: blur(3px) } }
-    @keyframes leave-back { to { opacity: 0; transform: translateX(20px); filter: blur(3px) } }
-    h1 { font-size: clamp(30px, 6.7vw, 40px); letter-spacing: -.055em; line-height: 1.14; font-weight: 650; margin: 0 0 26px; text-wrap: balance }
-    h1:focus, h2:focus { outline: none }
-    .hint { color: var(--muted); font-size: 14px; line-height: 1.5; margin: -12px 0 22px }
-    .choices { display: grid; gap: 11px }
-    .choice, .field, .login {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      width: 100%;
-      min-height: 61px;
-      text-align: left;
-      padding: 15px 18px;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      background: linear-gradient(140deg, #ffffff12, #ffffff06);
-      box-shadow: inset 0 1px 0 #ffffff09, 0 5px 12px #10111112;
-      color: var(--ink);
-      font-size: 16px;
-      font-weight: 550;
-      transition: background .22s, border-color .22s, transform .24s var(--ease), box-shadow .24s;
+    .header-action { display: flex; gap: 6px; align-items: center; border: 0; background: none; color: var(--muted); font-size: 13px; padding: 6px 0 }
+    main { flex: 1; display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: 36px 0 12px }
+    main.results-view { justify-content: flex-start; padding-top: 37px }
+    .step { width: 100%; animation: arrive .36s var(--ease) both }
+    @keyframes arrive { from { opacity: 0; transform: translateY(12px) scale(.99) } to { opacity: 1; transform: none } }
+    h1 { font-size: clamp(29px, 6vw, 37px); line-height: 1.16; font-weight: 730; letter-spacing: -.05em; margin: 0 0 26px; text-wrap: balance }
+    h1:focus { outline: none }
+    h2 { font-size: 21px; line-height: 1.3; letter-spacing: -.025em; margin: 0 }
+    p { margin: 0; line-height: 1.55 }
+    .hint { color: var(--muted); font-size: 14px; line-height: 1.55 }
+    .icon { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 20px; height: 20px }
+    .icon svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round }
+    .chevron { color: var(--accent); width: 19px; height: 19px }
+    .choices { display: grid; gap: 10px }
+    .choice, .field, .panel, .provider {
+      width: 100%; background: linear-gradient(135deg, #ffffffca, #ffffff70); border: 1px solid #e7d6c8b3;
+      border-radius: 17px; color: var(--ink); box-shadow: inset 0 1px 0 #fff, 0 4px 10px #8a583b06;
     }
-    .choices > * { animation: float-in .48s var(--ease) both; animation-delay: calc(var(--i, 0) * 30ms + 35ms) }
-    @keyframes float-in { from { transform: translateY(12px); opacity: 0 } to { transform: none; opacity: 1 } }
-    .choice:hover, .login:hover { border-color: #ffc18d8c; background: #ffffff18; transform: translateY(-2px) }
-    .choice:active, .login:active, .primary:active, .action:active { transform: scale(.97) }
-    .choice.selected, .choice.choosing { border-color: #ffad68aa; background: #ffad681a; box-shadow: 0 0 25px #ffad6814 }
-    .icon { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 20px; height: 20px }
-    .icon svg { width: 100%; height: 100%; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round }
-    .chevron { color: var(--accent); opacity: .8 }
-    .login { min-height: 66px; font-size: 17px }
-    .provider { display: flex; align-items: center; gap: 13px }
-    .provider-mark { width: 35px; height: 35px; display: grid; place-items: center; border-radius: 11px; font-size: 18px; font-weight: 750; background: #ffffff15; border: 1px solid #ffffff20; letter-spacing: -.05em }
-    .login-title { font-size: 37px; margin-bottom: 26px }
-    .field { display: block; outline: none; appearance: none; font-weight: 450 }
-    .field::placeholder { color: #bcb4ac }
-    .primary { border: 1px solid #ffbd86; color: #342117; background: linear-gradient(125deg, #ffd097, #ffad68 55%, #f59357); padding: 16px 18px; border-radius: 18px; min-height: 58px; width: 100%; font-weight: 750; font-size: 16px; margin-top: 12px; box-shadow: 0 9px 26px #db82352b, inset 0 1px 0 #ffffff55; transition: transform .2s, filter .2s }
-    .primary:not(:disabled):hover { filter: brightness(1.075); transform: translateY(-1px) }
-    .form-nav, .nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 18px }
-    .back, .secondary, .undo { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 0; padding: 8px 0; color: var(--muted); background: none; font-size: 14px; font-weight: 550; transition: color .2s }
-    .back:hover, .secondary:hover, .undo:hover { color: var(--accent) }
-    .back .icon, .undo .icon { width: 16px; height: 16px }
-    .results h1 { margin: 0; font-size: clamp(28px, 6vw, 35px) }
-    .results-heading { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 24px }
-    .counter { white-space: nowrap; color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums }
-    .deck { position: relative; border-radius: 27px; margin: 0 0 23px; touch-action: pan-y; perspective: 1000px }
-    .deck::before, .deck::after { content: ""; position: absolute; border-radius: 26px; inset: 0 10px -9px; border: 1px solid #ffffff27; background: #b6a49221; z-index: -1; transform: scale(.96); box-shadow: 0 8px 16px #0b0c0c20 }
-    .deck::after { inset: 0 20px -16px; transform: scale(.92); opacity: .7; z-index: -2 }
-    .deck.last::before, .deck.last::after { display: none }
-    .match-card {
-      position: relative;
-      min-height: 340px;
-      border-radius: 27px;
-      border: 1px solid #ffffff4a;
-      padding: 27px 25px 25px;
-      background: radial-gradient(ellipse at top right, #f6a46630, transparent 57%), linear-gradient(132deg, #ffffff11, #ffffff00 75%), #37302d;
-      box-shadow: inset 0 1px 0 #ffffff30, 0 17px 40px #08090949;
-      overflow: hidden;
-      cursor: grab;
-      user-select: none;
-      -webkit-user-select: none;
-      touch-action: pan-y;
-      will-change: transform;
-      transform-origin: 50% 95%;
-      animation: card-in .43s var(--ease) both;
-    }
-    @keyframes card-in { from { transform: translateY(15px) scale(.94); opacity: .4 } to { transform: none; opacity: 1 } }
-    .match-card.dragging { cursor: grabbing; animation: none; transition: none }
-    .match-card.returning { animation: none; transition: transform .28s var(--ease) }
-    .match-card.swipe-out { animation: none; transition: transform .3s var(--ease), opacity .3s }
-    .match-badge { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 750; color: #ffd7ae; padding: 7px 11px; border-radius: 100px; border: 1px solid #ffba8050; background: #ffb16d16; margin-bottom: 19px }
-    .match-badge .icon { height: 15px; width: 15px }
-    .match-card h2 { font-size: 23px; font-weight: 650; line-height: 1.24; letter-spacing: -.035em; margin: 0 0 22px; text-wrap: balance }
-    .amount { color: #ffcb97; font-size: clamp(37px, 9vw, 47px); font-weight: 700; letter-spacing: -.065em; font-variant-numeric: tabular-nums; line-height: 1; white-space: nowrap }
-    .amount-label { color: #d4c6ba; font-size: 13px; margin: 7px 0 23px }
-    .divider { height: 1px; background: #ffffff23; margin: 0 0 17px }
-    .reason-title { font-size: 12px; color: #c7b9ad; font-weight: 550; margin: 0 0 12px }
-    .reasons { list-style: none; margin: 0; padding: 0; display: grid; gap: 11px }
-    .reasons li { display: flex; align-items: center; gap: 9px; font-size: 14px; line-height: 1.35; color: #f1e7db }
-    .reasons .icon { color: var(--accent); width: 18px; height: 18px; border-radius: 50%; padding: 3px; background: #ffb16d1f }
-    .swipe-mark { position: absolute; top: 64px; left: 22px; border-radius: 10px; border: 2px solid #ffd2a2; background: #302920d9; padding: 10px 15px; font-size: 19px; font-weight: 750; letter-spacing: .08em; color: #ffd2a2; opacity: 0; transform: rotate(-10deg); pointer-events: none }
-    .swipe-mark.skip { left: auto; right: 22px; color: #eee0d6; border-color: #eee0d6; transform: rotate(10deg) }
-    .actions { display: grid; grid-template-columns: 1fr 1.4fr; gap: 10px }
-    .action { display: flex; justify-content: center; align-items: center; gap: 8px; min-height: 57px; border: 1px solid #ffffff35; background: #ffffff0a; color: var(--ink); border-radius: 17px; font-size: 15px; font-weight: 650; transition: transform .2s, background .2s }
-    .action:hover { background: #ffffff17; transform: translateY(-2px) }
-    .action.save { border-color: #ffbd86; background: linear-gradient(125deg, #ffd097, #ffad68 55%, #f59357); color: #38251a; box-shadow: 0 8px 24px #db82352c, inset 0 1px 0 #ffffff55 }
-    .action.save:hover { background: #ffc28c }
-    .results .nav { margin-top: 13px }
-    .small-link { min-height: 38px }
-    .finish { display: grid; gap: 12px }
-    .saved-row { border: 1px solid var(--border); border-radius: 17px; padding: 15px 17px; display: flex; align-items: center; justify-content: space-between; gap: 12px; background: #ffffff0b; font-size: 14px }
-    .saved-row strong { color: #ffcb97; white-space: nowrap; font-size: 15px }
-    .sr-only { border: 0; clip: rect(0,0,0,0); height: 1px; width: 1px; overflow: hidden; padding: 0; position: absolute; white-space: nowrap }
+    .choice, .provider { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 61px; text-align: left; padding: 15px 17px; font-size: 16px; font-weight: 600; transition: background .2s, transform .2s, border-color .2s, box-shadow .2s }
+    .choice:hover, .provider:hover { transform: translateY(-2px); background: #fffffff0; border-color: #db9c70; box-shadow: 0 8px 19px #af713817 }
+    .choice:active, .primary:active { transform: scale(.98) }
+    .choice.selected { border-color: #d68c5d; background: #fff0df }
+    .field { display: block; min-height: 59px; padding: 16px; font-size: 16px; font-weight: 500; outline: none; min-width: 0 }
+    .field::placeholder { color: #a3988d; font-weight: 400 }
+    .field:focus { border-color: #de985f; box-shadow: 0 0 0 4px #e49b5a18 }
+    .primary { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; min-height: 55px; border-radius: 16px; border: 1px solid #d28a56; color: #452415; background: linear-gradient(120deg, #ffc58e, #f8ab68 70%, #f19a57); box-shadow: 0 7px 20px #cd74322e, inset 0 1px 0 #ffffff90; font-size: 16px; font-weight: 670; padding: 14px 18px; transition: transform .2s, filter .2s }
+    .primary:hover:not(:disabled) { filter: brightness(1.035); transform: translateY(-1px) }
+    .stack { display: grid; gap: 11px }
+    .nav { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; justify-content: space-between; margin-top: 20px }
+    .subtle, .back, .text-button { display: inline-flex; gap: 6px; align-items: center; border: 0; background: none; padding: 7px 0; color: var(--muted); font-size: 14px; font-weight: 550 }
+    .subtle:hover, .back:hover, .text-button:hover { color: var(--accent-dark) }
+    .back .icon { width: 16px; height: 16px }
+    .text-button { color: var(--accent-dark) }
+    .search-box { position: relative }
+    .search-box > .icon { position: absolute; top: 20px; left: 15px; color: var(--accent) }
+    .search-box .field { padding-left: 45px }
+    .suggestions { display: flex; gap: 7px; flex-wrap: wrap; margin: 13px 0 21px }
+    .chip { display: inline-flex; align-items: center; gap: 6px; border: 1px solid #e9d7c6; background: #ffffff80; border-radius: 99px; min-height: 34px; padding: 6px 11px; font-size: 12px; font-weight: 550; color: var(--muted); transition: color .2s, border-color .2s }
+    .chip .icon { width: 13px; height: 13px; color: var(--accent) }
+    .chip:hover { color: var(--accent-dark); border-color: #d88d57 }
+    .loading-heading { margin-bottom: 8px }
+    .query-label { margin-bottom: 27px; color: var(--muted); font-size: 14px; overflow-wrap: anywhere }
+    .loading-panel { padding: 20px; display: grid; gap: 19px }
+    .loading-row { display: flex; align-items: center; gap: 11px; font-size: 14px; line-height: 1.4; color: #a3988c; transition: color .25s }
+    .loading-row.complete, .loading-row.active { color: var(--ink) }
+    .status-mark { width: 26px; height: 26px; display: grid; place-items: center; flex: 0 0 26px; border-radius: 50%; color: var(--accent-dark); background: #f5e6d8; transition: background .3s }
+    .status-mark .icon { width: 15px; height: 15px }
+    .loading-row.complete .status-mark { background: #fee2c5 }
+    .loader { width: 16px; height: 16px; border: 2px solid #e1b798; border-right-color: #d87535; border-radius: 50%; animation: spin .8s linear infinite }
+    .wait-dot { width: 6px; height: 6px; border-radius: 50%; background: #cdbbac }
+    @keyframes spin { to { transform: rotate(360deg) } }
+    .loading-track { height: 4px; margin-top: 4px; border-radius: 30px; background: #ecdccd; overflow: hidden }
+    .loading-track span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #f6b97c, #d87535); transition: width .72s var(--ease); border-radius: inherit }
+    .program { padding: 20px; margin-bottom: 13px }
+    .program-kicker { display: flex; gap: 7px; align-items: center; font-size: 12px; font-weight: 660; color: var(--accent-dark); margin-bottom: 13px }
+    .program-kicker .icon { width: 15px; height: 15px }
+    .university { font-size: 14px; color: var(--muted); margin: 5px 0 18px }
+    .details { display: grid; margin: 0; gap: 0; border-top: 1px solid #eadbcf }
+    .details div { display: grid; grid-template-columns: 90px 1fr; gap: 12px; padding: 10px 0 0; font-size: 13px; line-height: 1.4 }
+    .details dt { color: var(--muted) }
+    .details dd { margin: 0; font-weight: 550 }
+    .source { display: inline-flex; gap: 5px; align-items: center; margin-top: 13px; font-size: 12px; text-decoration: none; color: var(--accent-dark) }
+    .source .icon { width: 13px; height: 13px }
+    .source:hover { text-decoration: underline }
+    .manual-label { font-size: 13px; font-weight: 650; display: grid; gap: 6px }
+    .manual-label .field { min-height: 50px; font-size: 15px; padding: 12px }
+    .results-title { margin-bottom: 9px }
+    .result-context { margin: 0 0 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; color: var(--muted); font-size: 13px }
+    .result-context span { line-height: 1.45 }
+    .result-context button { flex-shrink: 0; font-size: 13px }
+    .fund-list { display: grid; gap: 9px }
+    .fund { text-align: left; display: flex; align-items: center; gap: 12px; padding: 15px; transition: border-color .2s, transform .2s }
+    .fund:hover { border-color: #dca172; transform: translateY(-1px) }
+    .fund-info { flex: 1; min-width: 0; display: grid; gap: 6px }
+    .fund-info strong { font-size: 15px; line-height: 1.35; font-weight: 650 }
+    .fund-info span { font-size: 12px; color: var(--muted); line-height: 1.4 }
+    .fund .icon { width: 18px; height: 18px; color: var(--accent) }
+    .fund .saved-icon { color: var(--accent-dark) }
+    .question-panel { padding: 17px; margin-top: 19px; background: linear-gradient(135deg,#fff9f1cc,#fff2e4a0) }
+    .question-panel h2 { font-size: 17px; margin-bottom: 5px }
+    .question-panel .hint { font-size: 12px; margin-bottom: 12px }
+    .inline-form { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 8px }
+    .inline-form .field { min-height: 43px; padding: 10px 12px; border-radius: 12px; font-size: 14px }
+    .inline-form .primary { min-height: 43px; width: auto; padding: 10px 12px; border-radius: 12px; font-size: 13px }
+    .detail-panel { padding: 20px; margin-bottom: 17px }
+    .detail-panel h2 { font-size: 16px; margin-bottom: 10px }
+    .detail-panel p { font-size: 14px; color: var(--muted) }
+    .detail-panel p + h2 { margin-top: 19px }
+    .secondary-button { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 50px; padding: 12px; color: var(--ink); font-weight: 600; background: #ffffff80; border: 1px solid #e4d3c4; border-radius: 15px }
+    .secondary-button .icon { color: var(--accent-dark) }
+    .provider-mark { width: 34px; height: 34px; display: grid; place-items: center; color: var(--accent-dark); background: #f8e6d3; border-radius: 11px; font-weight: 800 }
+    .provider-label { display: flex; gap: 12px; align-items: center }
+    .sr-only { position: absolute; height: 1px; width: 1px; overflow: hidden; padding: 0; clip: rect(0,0,0,0); white-space: nowrap; border: 0 }
     @media (max-width: 560px) {
-      .stage { padding: 0; display: flex }
-      .shell { flex: 1; min-height: 100svh; width: 100%; border: 0; border-radius: 0; background: #201e1d35; padding: max(26px, env(safe-area-inset-top)) 23px max(22px, env(safe-area-inset-bottom)); box-shadow: none }
-      main { padding: 40px 0 22px }
-      .match-card { padding: 24px 20px; min-height: 326px }
-      .amount { font-size: 44px }
-      .results-heading { margin-bottom: 21px }
+      .stage { display: flex; padding: 0; align-items: stretch }
+      .shell { flex: 1; width: 100%; min-height: 100svh; padding: max(28px,env(safe-area-inset-top)) 24px max(22px,env(safe-area-inset-bottom)); border: 0; border-radius: 0; background: linear-gradient(140deg,#ffffffb0,#fff4e758); box-shadow: none }
+      main { padding: 27px 0 10px }
+      main.results-view { padding-top: 32px }
     }
-    @media (max-width: 380px) { .shell { padding-inline: 17px } .match-card { padding: 20px 17px } .amount { font-size: 38px } .match-card h2 { font-size: 21px } }
+    @media (max-width: 350px) { .shell { padding-inline: 16px } .program { padding: 16px } .details div { grid-template-columns: 73px 1fr; gap: 7px } }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important } }
   </style>
 </head>
 <body>
   <div class="stage">
     <div class="shell">
-      <header>
-        <div class="brand">fønding<span>.</span></div>
-        <div class="progress" id="progress" role="progressbar" aria-label="Fremdrift" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" hidden></div>
-      </header>
+      <header><div class="brand">fønding<span>.</span></div><div id="header-action"></div></header>
       <main id="main"></main>
       <div class="sr-only" id="announcement" role="status" aria-live="polite"></div>
     </div>
   </div>
   <script>
-    // Static prototype: no real authentication, network calls, or saved personal data.
-    // Prototype grants reference public fund names; amounts are fabricated for interaction testing.
-    const answers = {};
-    const main = document.getElementById('main');
-    const progress = document.getElementById('progress');
-    const announcement = document.getElementById('announcement');
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let current = 'login', busy = false, matches = [], cursor = 0, decisions = [];
-    
-    const questions = {
-      purpose: { title:'Hva trenger du støtte til?', options:[['norway','Studier i Norge'],['abroad','Hele graden i utlandet'],['exchange','Utveksling'],['unsure','Vet ikke ennå']] },
-      level: { title:'Hvilket nivå studerer du på?', options:[['bachelor','Bachelor'],['master','Master'],['phd','Doktorgrad'],['other','Annet']] },
-      subject: { title:'Hva studerer du?', options:[['business','Økonomi og ledelse'],['tech','Teknologi og realfag'],['health','Helse og medisin'],['society','Samfunnsfag og jus'],['arts','Kunst og humaniora'],['other','Annet']] },
-      country: { title:'I hvilket land skal du studere?', placeholder:'Skriv landet', type:'text' },
-      connection: { title:'Hvor vokste du opp?', hint:'Noen legater støtter studenter fra bestemte kommuner.', placeholder:'Skriv kommunen', type:'text' }
-    };
-    
+    // Static prototype. Program search, login and fund matching use only local fixture data.
+    // No external search, authentication, uploads, analytics or persistent personal information.
+    const programs = [
+      {
+        id: 'lse-misdi', title: 'MSc Management of Information Systems and Digital Innovation',
+        school: 'London School of Economics and Political Science (LSE)', shortSchool: 'LSE',
+        degree: 'Master (MSc)', level: 'master', field: 'Informasjonssystemer og digital innovasjon', subject: 'business', country: 'Storbritannia',
+        source: 'https://www.lse.ac.uk/study-at-lse/graduate/msc-management-information-systems-and-digital-innovation'
+      },
+      {
+        id: 'kcl-political-economy', title: 'Political Economy MA',
+        school: 'King’s College London', shortSchool: 'King’s College London',
+        degree: 'Master (MA)', level: 'master', field: 'Politisk økonomi', subject: 'society', country: 'Storbritannia',
+        source: 'https://www.kcl.ac.uk/study/postgraduate-taught/courses/political-economy-ma'
+      }
+    ];
+    const purposes = [['norway','Studier i Norge'],['abroad','Hel grad i utlandet'],['exchange','Utveksling'],['unsure','Vet ikke ennå']];
+    const phases = ['Søker etter studieprogrammet…', 'Henter studieinformasjon…', 'Finner grad, fagområde og studieland…', 'Klargjør studiet ditt…'];
     const icons = {
-      arrow:'<path d="M5 12h14m-6-6 6 6-6 6"/>',
-      back:'<path d="M19 12H5m6 6-6-6 6-6"/>',
-      check:'<path d="m5 12 4 4L19 6"/>',
-      close:'<path d="m6 6 12 12M18 6 6 18"/>',
-      heart:'<path d="M20.8 8.5c0 4.6-8.8 10-8.8 10S3.2 13.1 3.2 8.5a4.5 4.5 0 0 1 8.8-1.3 4.5 4.5 0 0 1 8.8 1.3Z"/>',
-      sparkle:'<path d="m12 2 2.6 6.4L21 11l-6.4 2.6L12 20l-2.6-6.4L3 11l6.4-2.6L12 2Z"/><path d="M20 2v4M18 4h4"/>',
-      undo:'<path d="M8 5 3 10l5 5M3 10h10a6 6 0 0 1 6 6v2"/>'
+      arrow:'<path d="M5 12h14m-6-6 6 6-6 6"/>', back:'<path d="M19 12H5m6 6-6-6 6-6"/>', check:'<path d="m5 12 4 4L19 6"/>',
+      search:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/>', external:'<path d="M13 5h6v6m0-6-9 9"/><path d="M17 13v6H5V7h6"/>',
+      bookmark:'<path d="M6 4h12v16l-6-4-6 4z"/>', user:'<circle cx="12" cy="8" r="3.5"/><path d="M4 20c0-4 3.6-6 8-6s8 2 8 6"/>',
+      edit:'<path d="m15 5 4 4M5 19l4-1 11-11-4-4L5 14z"/>'
     };
-    function icon(name, extra='') {
-      const node = make('span', undefined, 'icon '+extra);
-      node.setAttribute('aria-hidden','true');
-      node.innerHTML = '<svg viewBox="0 0 24 24">'+icons[name]+'</svg>';
+    const main = document.getElementById('main');
+    const announce = document.getElementById('announcement');
+    const headerAction = document.getElementById('header-action');
+    const state = { screen:'purpose', purpose:'', query:'', found:null, program:null, connection:'', saved:new Set(), loggedIn:false, activeFund:null, pendingAction:null };
+    let searchGeneration = 0;
+
+    function el(tag, text, cls) {
+      const node = document.createElement(tag);
+      if (text !== undefined) node.textContent = text;
+      if (cls) node.className = cls;
       return node;
     }
-    function make(tag, value, className) {
-      const el = document.createElement(tag);
-      if (value !== undefined) el.textContent = value;
-      if (className) el.className = className;
-      return el;
+    function icon(name, cls='') {
+      const node = el('span',undefined,'icon '+cls); node.setAttribute('aria-hidden','true');
+      node.innerHTML = '<svg viewBox="0 0 24 24">'+icons[name]+'</svg>'; return node;
     }
-    function button(value, className, action) {
-      const el = make('button',value,className);
-      el.type = 'button';
-      el.addEventListener('click', action);
-      return el;
+    function btn(text, cls, action) {
+      const node = el('button',text,cls); node.type='button'; node.addEventListener('click',action); return node;
     }
-    function flow() {
-      const steps = ['purpose','level','subject'];
-      if (['abroad','exchange'].includes(answers.purpose)) steps.push('country');
-      return [...steps,'connection'];
+    function title(section, text, cls) { const h = el('h1',text,cls); h.tabIndex=-1; section.append(h); return h; }
+    function nav(section, backAction, secondaryText, secondaryAction) {
+      const row = el('div',undefined,'nav');
+      const back = btn(undefined,'back',backAction); back.append(icon('back'),el('span','Tilbake')); row.append(back);
+      if (secondaryText) row.append(btn(secondaryText,'subtle',secondaryAction));
+      section.append(row);
     }
-    function updateProgress() {
-      const steps = flow();
-      const index = steps.indexOf(current);
-      progress.hidden = index < 0;
-      progress.replaceChildren(...steps.map((_,i)=>make('span',undefined,i<=index?'complete':'')));
-      progress.setAttribute('aria-valuenow',index < 0 ? 100 : Math.round((index+1)/steps.length*100));
-    }
-    function title(section, value) {
-      const el = make('h1',value);
-      el.tabIndex = -1;
-      section.append(el);
-      return el;
-    }
-    function navigate(destination, reverse=false) {
-      if (busy) return;
-      busy = true;
-      const old = main.firstElementChild;
-      if (old) {
-        old.inert = true;
-        old.classList.toggle('reverse',reverse);
-        old.classList.add('exiting');
-      }
-      setTimeout(()=>{
-        current=destination;
-        render(true,reverse);
-        busy=false;
-      },reducedMotion.matches?0:185);
-    }
-    function previous() {
-      if (busy) return;
-      const steps=flow();
-      if (current==='results'||current==='finish') { navigate(steps.at(-1),true); return; }
-      const pos=steps.indexOf(current);
-      if (pos>0) navigate(steps[pos-1],true);
-      else if (pos===0) navigate('login',true);
-    }
-    function next(value, option) {
-      if (busy) return;
-      if (option) option.classList.add('choosing');
-      if (current==='purpose' && answers.purpose!==value) delete answers.country;
-      answers[current]=value;
-      const steps=flow(), destination=steps[steps.indexOf(current)+1]||'results';
-      if (destination==='results') {
-        matches=buildMatches();
-        cursor=0;
-        decisions=[];
-      }
-      navigate(destination);
-    }
+    function show(screen, focus=true) { if (state.screen==='searching' && screen!=='searching') searchGeneration++; state.screen=screen; render(focus); }
     function reset() {
-      if (busy) return;
-      Object.keys(answers).forEach(key=>delete answers[key]);
-      matches=[]; cursor=0; decisions=[];
-      navigate('login',true);
+      searchGeneration++;
+      Object.assign(state,{screen:'purpose',purpose:'',query:'',found:null,program:null,connection:'',saved:new Set(),loggedIn:false,activeFund:null,pendingAction:null});
+      render();
     }
-    function back(section) {
-      const row=make('div',undefined,'nav');
-      const btn=button(undefined,'back',previous);
-      btn.append(icon('back'),make('span','Tilbake'));
-      row.append(btn);section.append(row);return row;
+    function updateHeader() {
+      headerAction.replaceChildren();
+      if (state.screen==='purpose') return;
+      if (state.loggedIn) {
+        const b=btn('Min side','header-action',()=>show('saved')); b.prepend(icon('user')); headerAction.append(b);
+      } else if (['results','detail'].includes(state.screen)) {
+        headerAction.append(btn('Logg inn','header-action',()=>{state.pendingAction={type:'browse',returnTo:state.screen};show('login');}));
+      }
     }
-    function buildMatches() {
-      // Relevance rules for the demo only, not real eligibility decisions.
-      const result=[];
-      const add=(name,amount,reasons)=>result.push({name,amount,reasons});
-      const abroad=['abroad','exchange'].includes(answers.purpose);
-      const higher=['bachelor','master','phd'].includes(answers.level);
-      const management=answers.subject==='business';
-      const master=answers.level==='master';
-      const place=(answers.connection||'').toLowerCase();
-      if (abroad && management && higher) add('Jansons Legat',50000,['Utenlandsstudier','Økonomi og ledelse','Relevans for norsk næringsliv']);
-      if (master && abroad) add('Postgrad Solutions Study Bursary',25000,['Masterstudier','Studier i utlandet']);
-      if (/asker|hurum|røyken/.test(place) && higher) add('Adam Ciesielskis stiftelse',40000,['Tilknytning til Asker','Høyere utdanning']);
-      if (/stavanger|rogaland|sandnes|suldal|haugesund/.test(place) && abroad && management && higher) add('Peder Smedvigs Stipendiefond',60000,['Studier i utlandet','Økonomifag','Tilknytning til Rogaland']);
-      if (higher) add('Else og Peter Vogts legat',30000,['Høyere utdanning',master?'Mastergrad':answers.level==='phd'?'Doktorgrad':'Bachelorgrad']);
+    function render(focus=true) {
+      updateHeader();
+      const section=el('section',undefined,'step');
+      main.classList.toggle('results-view',['results','saved'].includes(state.screen));
+      const views={purpose:renderPurpose,study:renderStudy,searching:renderSearching,confirm:renderConfirm,notfound:renderNotFound,manual:renderManual,results:renderResults,detail:renderDetail,login:renderLogin,saved:renderSaved,application:renderApplication};
+      views[state.screen](section);
+      main.replaceChildren(section);
+      if (focus) section.querySelector('h1')?.focus({preventScroll:true});
+      window.scrollTo(0,0);
+    }
+    function renderPurpose(s) {
+      title(s,'Hva trenger du støtte til?');
+      const list=el('div',undefined,'choices');
+      purposes.forEach(([key,label])=>{
+        const option=btn(undefined,'choice'+(key===state.purpose?' selected':''),()=>{
+          if(state.purpose!==key){state.program=null;state.query='';state.connection='';state.saved.clear();}
+          state.purpose=key; show('study');
+        });
+        option.append(el('span',label),icon('arrow','chevron')); list.append(option);
+      });
+      s.append(list);
+    }
+    function renderStudy(s) {
+      title(s,'Hva skal du studere?');
+      const form=el('form',undefined,'stack');
+      const wrap=el('div',undefined,'search-box');
+      const input=el('input',undefined,'field'); input.type='search'; input.value=state.query; input.placeholder='Søk etter studiet ditt'; input.autocomplete='off'; input.maxLength=150; input.setAttribute('aria-label','Søk etter studieprogram');
+      wrap.append(icon('search'),input);
+      const submit=btn('Søk etter studiet','primary',()=>{}); submit.type='submit'; submit.disabled=!input.value.trim();
+      input.addEventListener('input',()=>{submit.disabled=!input.value.trim();});
+      form.addEventListener('submit',event=>{event.preventDefault(); if(input.value.trim()) startSearch(input.value);});
+      form.append(wrap,submit); s.append(form);
+      const suggestions=el('div',undefined,'suggestions');
+      ['LSE MISDI','Political Economy på King’s'].forEach(query=>{
+        const b=btn(query,'chip',()=>startSearch(query)); b.prepend(icon('search')); suggestions.append(b);
+      });
+      s.append(suggestions);
+      nav(s,()=>show('purpose'),'Ikke bestemt meg ennå',()=>{state.program=null;show('results');});
+    }
+    function findProgram(query) {
+      const q=query.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f’']/g,'').replace(/[^a-z0-9 ]/g,' ');
+      if (/\bmisdi\b|\blse\b|london school of economics|management of information systems|digital innovation/.test(q)) return programs[0];
+      if (/political economy|politisk okonomi|\bkcl\b|\bkings?\b/.test(q)) return programs[1];
+      return null;
+    }
+    function startSearch(raw) {
+      const query=raw.trim(); if(!query) return;
+      state.query=query;state.found=null;state.phase=0;
+      const generation=++searchGeneration; show('searching');
+      [750,1600,2450].forEach((delay,index)=>setTimeout(()=>{
+        if(generation!==searchGeneration||state.screen!=='searching')return;
+        state.phase=index+1; updateLoading();
+      },delay));
+      setTimeout(()=>{
+        if(generation!==searchGeneration||state.screen!=='searching')return;
+        state.found=findProgram(query); show(state.found?'confirm':'notfound');
+      },3150);
+    }
+    function renderSearching(s) {
+      title(s,'Finner studiet ditt','loading-heading');
+      s.append(el('p',state.query,'query-label'));
+      const panel=el('div',undefined,'panel loading-panel'); panel.id='loading-panel';
+      phases.forEach((message,i)=>{
+        const row=el('div',undefined,'loading-row'); row.dataset.phase=i;
+        row.append(el('span',undefined,'status-mark'),el('span',message)); panel.append(row);
+      });
+      const track=el('div',undefined,'loading-track'); track.setAttribute('aria-hidden','true'); track.append(el('span'));panel.append(track);s.append(panel);
+      nav(s,()=>show('study'));
+      paintLoading(panel);
+    }
+    function paintLoading(panel) {
+      panel.querySelectorAll('.loading-row').forEach((row,i)=>{
+        const status=row.firstElementChild;row.classList.toggle('complete',i<state.phase);row.classList.toggle('active',i===state.phase);
+        status.replaceChildren(i<state.phase?icon('check'):el('span',undefined,i===state.phase?'loader':'wait-dot'));
+      });
+      panel.querySelector('.loading-track span').style.width=((state.phase+1)*23)+'%';
+      announce.textContent=phases[state.phase];
+    }
+    function updateLoading(){const panel=document.getElementById('loading-panel');if(panel)paintLoading(panel);}
+    function renderConfirm(s) {
+      title(s,'Er dette studiet ditt?');
+      const p=state.found;const card=el('article',undefined,'panel program');
+      const kicker=el('div',undefined,'program-kicker');kicker.append(icon('check'),el('span','Studieprogram funnet'));
+      card.append(kicker,el('h2',p.title),el('p',p.school,'university'));
+      const details=el('dl',undefined,'details');
+      [['Grad',p.degree],['Fagområde',p.field],['Land',p.country]].forEach(([label,value])=>{const row=el('div');row.append(el('dt',label),el('dd',value));details.append(row);});
+      card.append(details);
+      const source=el('a','Studieprogram hos '+p.shortSchool,'source'); source.href=p.source;source.target='_blank';source.rel='noopener noreferrer';source.append(icon('external'));card.append(source);
+      s.append(card,btn('Ja, dette er studiet', 'primary',()=>{state.program=p;state.saved.clear();show('results');}));
+      nav(s,()=>show('study'),'Legg inn manuelt',()=>show('manual'));
+    }
+    function renderNotFound(s) {
+      title(s,'Vi fant ikke studiet');
+      s.append(el('p','Prøv et annet søk, eller legg inn opplysningene selv.','hint'));
+      const actions=el('div',undefined,'stack');actions.style.marginTop='22px';actions.append(btn('Søk på nytt','primary',()=>show('study')),btn('Legg inn manuelt','secondary-button',()=>show('manual')));s.append(actions);
+      nav(s,()=>show('study'),'Hopp over',()=>{state.program=null;show('results');});
+    }
+    function renderManual(s) {
+      title(s,'Fortell oss litt om studiet');
+      const form=el('form',undefined,'stack');
+      function label(text,input){const node=el('label',text,'manual-label');node.append(input);form.append(node);}
+      function field(placeholder,value=''){const input=el('input',undefined,'field');input.placeholder=placeholder;input.value=value;input.maxLength=150;return input;}
+      const name=field('Navn på studieprogram',state.query); name.required=true; label('Studieprogram',name);
+      const degree=el('select',undefined,'field');
+      [['','Velg grad'],['bachelor','Bachelor'],['master','Master'],['phd','Doktorgrad'],['other','Annet']].forEach(([value,text])=>{const option=el('option',text);option.value=value;degree.append(option);});label('Grad',degree);
+      const subject=field('F.eks. økonomi og ledelse');label('Fagområde',subject);
+      const country=field('Land',state.purpose==='norway'?'Norge':'');label('Studieland',country);
+      const submit=btn('Fortsett','primary',()=>{});submit.type='submit';form.append(submit);
+      form.addEventListener('submit',e=>{e.preventDefault();state.program={title:name.value.trim(),degree:degree.selectedOptions[0].value?degree.selectedOptions[0].textContent:'Uavklart',level:degree.value,field:subject.value.trim(),country:country.value.trim(),subject:/økonomi|ledelse|business|management/i.test(subject.value)?'business':'other'};state.saved.clear();show('results');});
+      s.append(form);nav(s,()=>show('study'),'Hopp over',()=>{state.program=null;show('results');});
+    }
+    function funds() {
+      // Illustrative potential matches, not determinations of eligibility or grants awarded.
+      const p=state.program, abroad=['abroad','exchange'].includes(state.purpose), master=p?.level==='master', management=p?.subject==='business';
+      const place=state.connection.toLowerCase(), result=[];
+      const add=(id,name,reason,advice)=>result.push({id,name,reason,advice});
+      if(abroad&&management) add('jansons','Jansons Legat','Utenlandsstudier · økonomi og ledelse','Vi ville undersøkt hvordan studiets faglige innhold kan knyttes til legatets formål og din videre karriere.');
+      if(abroad&&(master||!p)) add('postgrad','Postgrad Solutions Study Bursary','Masterstudier i utlandet','Vi ville fremhevet studieplanen din og dokumentert finansieringsbehovet.');
+      if(/asker|hurum|røyken/.test(place)) add('ciesielski','Adam Ciesielskis stiftelse','Geografisk tilknytning · utdanning','Vi ville dokumentert tilknytningen din til kommunen og forklart studieplanene.');
+      if(/stavanger|rogaland|sandnes|suldal|haugesund/.test(place)&&abroad&&management) add('smedvig','Peder Smedvigs Stipendiefond','Utenlandsstudier · tilknytning til Rogaland','Vi ville undersøkt hvordan den geografiske tilknytningen og utdanningen passer legatets formål.');
+      add('vogt','Else og Peter Vogts legat',p?'Høyere utdanning':'Utdanningsstøtte','Vi ville avklart de konkrete kvalifikasjonskravene og lagt vekt på den faglige begrunnelsen for utdanningen.');
       return result;
     }
-    const money = amount => amount.toLocaleString('nb-NO')+' kr';
-    function renderMatch(section) {
-      const row=make('div',undefined,'results-heading');
-      const heading=make('h1','Dine matcher');heading.tabIndex=-1;
-      row.append(heading,make('span',(cursor+1)+' av '+matches.length,'counter'));
-      section.append(row);
-      const item=matches[cursor];
-      const deck=make('div',undefined,'deck'+(cursor===matches.length-1?' last':''));
-      const card=make('article',undefined,'match-card');
-      card.setAttribute('aria-label',item.name+', '+money(item.amount));
-      const badge=make('div',undefined,'match-badge');badge.append(icon('sparkle'),make('span',item.reasons.length>=3?'Kjempematch':'Sterk match'));
-      const name=make('h2',item.name);
-      const reasons=make('ul',undefined,'reasons');
-      item.reasons.forEach(reason=>{const li=make('li');li.append(icon('check'),make('span',reason));reasons.append(li);});
-      const saveMark=make('div','LAGRE','swipe-mark');
-      const skipMark=make('div','HOPP OVER','swipe-mark skip');
-      card.append(badge,name,make('div',money(item.amount),'amount'),make('p','Søknadsbeløp','amount-label'),make('div',undefined,'divider'),make('p','Derfor passer det for deg','reason-title'),reasons,saveMark,skipMark);
-      deck.append(card);section.append(deck);
-
-      let drag=null;
-      function decide(save, dy=0) {
-        if (busy || current!=='results') return;
-        busy=true;drag=null;
-        card.classList.remove('dragging','returning');
-        card.classList.add('swipe-out');
-        const direction=save?1:-1;
-        (save?saveMark:skipMark).style.opacity='1';
-        card.style.transform='translate('+direction*Math.max(window.innerWidth*.7,460)+'px,'+dy+'px) rotate('+direction*22+'deg)';
-        card.style.opacity='0';
-        setTimeout(()=>{
-          decisions.push({item,save});
-          cursor++;
-          announcement.textContent=save?item.name+' lagret':item.name+' hoppet over';
-          current=cursor<matches.length?'results':'finish';
-          busy=false;
-          render(true);
-        },reducedMotion.matches?0:300);
-      }
-      function cancelDrag() {
-        drag=null;
-        card.classList.remove('dragging');
-        card.classList.add('returning');
-        card.style.transform='';
-        saveMark.style.opacity=skipMark.style.opacity='0';
-      }
-      card.addEventListener('pointerdown',event=>{
-        if (busy || !event.isPrimary || event.button!==0) return;
-        drag={x:event.clientX,y:event.clientY,id:event.pointerId,dx:0,dy:0};
-        card.classList.remove('returning');
-        card.classList.add('dragging');
-        card.setPointerCapture(event.pointerId);
-      });
-      card.addEventListener('pointermove',event=>{
-        if(!drag||drag.id!==event.pointerId)return;
-        drag.dx=event.clientX-drag.x;drag.dy=event.clientY-drag.y;
-        if(Math.abs(drag.dy)>Math.abs(drag.dx)*1.35&&Math.abs(drag.dy)>25){cancelDrag();return;}
-        const x=drag.dx,y=drag.dy*.24;
-        card.style.transform='translate('+x+'px,'+y+'px) rotate('+Math.max(-16,Math.min(16,x/10))+'deg)';
-        saveMark.style.opacity=Math.max(0,Math.min(1,x/92));
-        skipMark.style.opacity=Math.max(0,Math.min(1,-x/92));
-      });
-      card.addEventListener('pointerup',event=>{
-        if(!drag||drag.id!==event.pointerId)return;
-        const {dx,dy}=drag;
-        if(Math.abs(dx)>Math.min(90,card.offsetWidth*.25))decide(dx>0,dy*.3);
-        else cancelDrag();
-      });
-      card.addEventListener('pointercancel',()=>{if(drag)cancelDrag();});
-      card.addEventListener('lostpointercapture',()=>{if(drag)cancelDrag();});
-      const actions=make('div',undefined,'actions');
-      const skip=button(undefined,'action',()=>decide(false));skip.append(icon('close'),make('span','Hopp over'));
-      const save=button(undefined,'action save',()=>decide(true));save.append(icon('heart'),make('span','Lagre'));
-      actions.append(skip,save);section.append(actions);
-      const nav=back(section);
-      if (decisions.length) nav.append(undoButton());
-      section.addEventListener('keydown',event=>{
-        if(event.key==='ArrowLeft'||event.key==='ArrowRight'){event.preventDefault();decide(event.key==='ArrowRight');}
-      });
-      return heading;
+    function renderResults(s) {
+      title(s,'Mulige legater','results-title');
+      const context=el('div',undefined,'result-context');
+      context.append(el('span',state.program?`${state.program.shortSchool||state.program.title}${state.program.degree?' · '+state.program.degree:''}`:purposes.find(([key])=>key===state.purpose)?.[1]||'Studieplan'),btn('Endre','text-button',()=>show('study')));s.append(context);
+      const list=el('div',undefined,'fund-list');
+      funds().forEach(fund=>{
+        const row=btn(undefined,'panel fund',()=>{state.activeFund=fund;show('detail');});
+        const info=el('div',undefined,'fund-info');info.append(el('strong',fund.name),el('span',fund.reason));
+        row.append(info,icon(state.saved.has(fund.id)?'bookmark':'arrow',state.saved.has(fund.id)?'saved-icon':'chevron'));list.append(row);
+      });s.append(list);
+      const question=el('section',undefined,'panel question-panel');
+      question.append(el('h2','Hvor vokste du opp?'),el('p','Tilknytning til en kommune kan avklare flere legater.','hint'));
+      const form=el('form',undefined,'inline-form');const input=el('input',undefined,'field');input.placeholder='Søk etter kommune';input.value=state.connection;input.setAttribute('aria-label','Oppvekstkommune');input.maxLength=100;
+      const add=btn(state.connection?'Endre':'Legg til','primary',()=>{});add.type='submit';add.disabled=!input.value.trim();input.addEventListener('input',()=>{add.disabled=!input.value.trim();});
+      form.addEventListener('submit',e=>{e.preventDefault();if(input.value.trim()){state.connection=input.value.trim();render(false);announce.textContent='Legatlisten er oppdatert';}});
+      form.append(input,add);question.append(form);s.append(question);
+      nav(s,()=>show('study'),'Start på nytt',reset);
     }
-    function undoButton() {
-      const btn=button(undefined,'undo',()=>{
-        if(busy||!decisions.length)return;
-        decisions.pop();cursor--;current='results';render(true,true);
-      });
-      btn.append(icon('undo'),make('span','Angre'));return btn;
+    function renderDetail(s) {
+      const fund=state.activeFund; title(s,fund.name);
+      const card=el('div',undefined,'panel detail-panel');
+      card.append(el('h2','Hvorfor vi viser dette legatet'),el('p',fund.reason+'. Vi må avklare legatets fullstendige kriterier før du søker.'),el('h2','Slik kan vi vinkle søknaden'),el('p',fund.advice)); s.append(card);
+      const actions=el('div',undefined,'stack');actions.append(btn('Forbered søknaden min','primary',()=>requireAccount('apply')));
+      const save=btn(state.saved.has(fund.id)?'Lagret':'Lagre legat','secondary-button',()=>requireAccount('save'));save.prepend(icon(state.saved.has(fund.id)?'check':'bookmark'));save.disabled=state.saved.has(fund.id);actions.append(save);s.append(actions);nav(s,()=>show('results'));
     }
-    function render(focus=true,reverse=false) {
-      updateProgress();
-      const section=make('section',undefined,'step'+(reverse?' reverse':''));
-      let heading;
-      if(current==='login'){
-        heading=title(section,'Logg inn');
-        heading.className='login-title';
-        const list=make('div',undefined,'choices');
-        [['Feide','F'],['BankID','B']].forEach(([provider,letter],i)=>{
-          const opt=button(undefined,'login',()=>navigate('purpose'));
-          opt.style.setProperty('--i',i);
-          const group=make('span',undefined,'provider');
-          group.append(make('span',letter,'provider-mark'),make('span','Logg inn med '+provider));
-          opt.append(group,icon('arrow','chevron'));
-          list.append(opt);
-        });
-        section.append(list);
-      }else if(current==='results'&&matches.length){
-        section.classList.add('results');
-        heading=renderMatch(section);
-      }else if(current==='results'||current==='finish'){
-        const saved=decisions.filter(d=>d.save).map(d=>d.item);
-        heading=title(section,!matches.length?'Ingen matcher ennå':saved.length?saved.length+' lagrede '+(saved.length===1?'legat':'legater'):'Du har sett alle matchene');
-        const list=make('div',undefined,'finish');
-        saved.forEach(item=>{
-          const row=make('div',undefined,'saved-row');
-          row.append(make('span',item.name),make('strong',money(item.amount)));list.append(row);
-        });
-        section.append(list);
-        if(!matches.length)section.append(make('p','Prøv å endre svarene dine.','hint'));
-        section.append(button('Start på nytt','primary',reset));
-        const nav=back(section);
-        if(decisions.length)nav.append(undoButton());
-      }else{
-        const q=questions[current];
-        heading=title(section,q.title);
-        if(q.hint)section.append(make('p',q.hint,'hint'));
-        if(q.options){
-          const list=make('div',undefined,'choices');
-          q.options.forEach(([value,label],i)=>{
-            const option=button(undefined,'choice'+(answers[current]===value?' selected':''),()=>next(value,option));
-            option.style.setProperty('--i',i);
-            option.append(make('span',label),icon('arrow','chevron'));
-            list.append(option);
-          });
-          section.append(list);back(section);
-        }else{
-          const form=make('form');
-          const input=make('input',undefined,'field');
-          input.type='text';input.placeholder=q.placeholder;input.value=answers[current]||'';input.autocomplete='off';input.maxLength=100;input.setAttribute('aria-label',q.title);
-          const submit=button('Fortsett','primary',()=>{});submit.type='submit';submit.disabled=!input.value.trim();
-          input.addEventListener('input',()=>{submit.disabled=!input.value.trim();});
-          form.addEventListener('submit',event=>{event.preventDefault();if(input.value.trim())next(input.value.trim());});
-          form.append(input,submit);section.append(form);
-          const nav=back(section);nav.className='form-nav';
-          nav.append(button('Hopp over','secondary',()=>next('')));
-        }
-      }
-      main.replaceChildren(section);
-      if(focus)heading.focus({preventScroll:true});
+    function requireAccount(type){if(state.loggedIn){performAction(type);return;}state.pendingAction={type,returnTo:'detail'};show('login');}
+    function performAction(type){if(type==='save'){state.saved.add(state.activeFund.id);show('detail');announce.textContent='Legatet er lagret';}else if(type==='apply'){show('application');}else{show(state.pendingAction?.returnTo||'results');}state.pendingAction=null;}
+    function renderLogin(s) {
+      title(s,'Logg inn');const list=el('div',undefined,'choices');
+      [['Feide','F'],['BankID','B']].forEach(([provider,letter])=>{
+        const option=btn(undefined,'provider',()=>{state.loggedIn=true;performAction(state.pendingAction?.type||'browse');});
+        const label=el('span',undefined,'provider-label');label.append(el('span',letter,'provider-mark'),el('span','Logg inn med '+provider));option.append(label,icon('arrow','chevron'));list.append(option);
+      });s.append(list);nav(s,()=>{const target=state.pendingAction?.returnTo||'results';state.pendingAction=null;show(target);});
     }
+    function renderSaved(s){title(s,'Lagrede legater');const list=el('div',undefined,'fund-list');const items=funds().filter(f=>state.saved.has(f.id));items.forEach(fund=>{const b=btn(undefined,'panel fund',()=>{state.activeFund=fund;show('detail');});b.append(el('span',fund.name,'fund-info'),icon('arrow','chevron'));list.append(b);});s.append(list);if(!items.length)s.append(el('p','Du har ikke lagret noen legater ennå.','hint'));nav(s,()=>show('results'));}
+    function renderApplication(s){title(s,'Forbered søknaden');const card=el('div',undefined,'panel detail-panel');card.append(el('h2',state.activeFund.name),el('p',state.activeFund.advice),el('h2','Neste steg'),el('p','Vi bruker opplysningene du allerede har gitt og avklarer hva vi trenger for en god søknad.'));s.append(card,btn('Til mine legater','primary',()=>{state.saved.add(state.activeFund.id);show('saved');}));nav(s,()=>show('detail'));}
     render(false);
   </script>
 </body>
