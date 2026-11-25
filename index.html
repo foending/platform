@@ -4,65 +4,217 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#201c1b">
   <title>fønding</title>
   <style>
-    :root{color-scheme:light;--bg:#f2f1f6;--paper:#ffffffa8;--ink:#1c1924;--muted:#74717e;--line:#d8d5e4;--accent:#5635df;--soft:#e6defad6}
-    *{box-sizing:border-box}
-    body{margin:0;min-height:100svh;background:radial-gradient(ellipse at 8% 13%,#e2def4 0%,transparent 62%),radial-gradient(ellipse at 92% 85%,#e8e3f7 0%,transparent 55%),var(--bg);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
-    button,input,select{font:inherit}
-    button{cursor:pointer}
-    button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
-    .shell{max-width:488px;min-height:100svh;margin:auto;padding:36px 24px 32px;display:flex;flex-direction:column}
-    header{display:flex;align-items:center;justify-content:space-between;min-height:32px;gap:24px}
-    .brand{font-size:25px;font-weight:800;letter-spacing:-1.7px;line-height:1;color:var(--accent)}
-    .progress{width:92px;height:4px;background:#cbc5df80;border-radius:8px;overflow:hidden}
-    .progress>span{display:block;width:0%;height:100%;background:var(--accent);border-radius:8px;transition:width .25s ease}
-    main{flex:1;display:flex;flex-direction:column;justify-content:center;padding:36px 0 64px}
-    .step{animation:appear .18s ease-out}
-    @keyframes appear{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
-    h1{font-size:clamp(30px,7vw,40px);letter-spacing:-1.55px;line-height:1.09;font-weight:700;margin:0 0 28px;max-width:420px;text-wrap:balance}
-    h1:focus{outline:none}
-    .choices{display:grid;gap:10px}
-    .choice,.card{appearance:none;text-align:left;display:flex;align-items:center;justify-content:space-between;gap:15px;width:100%;min-height:60px;padding:17px 18px;border:1px solid #ffffffbf;border-radius:15px;background:linear-gradient(145deg,#ffffff9e,#ffffff55),var(--paper);color:var(--ink);font-size:16px;font-weight:550;transition:background .15s,border-color .15s,transform .15s;backdrop-filter:blur(18px) saturate(125%);-webkit-backdrop-filter:blur(18px) saturate(125%);box-shadow:inset 0 1px 1px #fff9,0 2px 12px #40326a08}
-    .choice:hover,.card:hover{border-color:#8c76e4;background:#ffffffd9;transform:translateY(-1px)}
-    .choice.selected{border-color:var(--accent);background:var(--soft)}
-    .chevron{color:var(--accent);font-size:19px;font-weight:400;line-height:1}
-    .back,.secondary{background:none;border:0;color:var(--muted);padding:10px 0;font-size:14px;font-weight:500;align-self:flex-start}
-    .back:hover,.secondary:hover{color:var(--accent)}
-    .nav{min-height:38px;margin-top:20px}
-    .field{width:100%;min-height:60px;border:1px solid #ffffffbf;border-radius:15px;padding:17px 18px;background:var(--paper);color:var(--ink);font-size:16px;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:inset 0 1px 1px #fff9,0 2px 12px #40326a08}
-    .field::placeholder{color:var(--muted)}
-    .primary{width:100%;border:1px solid #7b60ec;border-radius:15px;background:linear-gradient(145deg,#7354ed,var(--accent));color:white;padding:17px 18px;min-height:57px;font-weight:650;margin-top:12px;box-shadow:inset 0 1px 1px #ffffff30,0 3px 12px #5635df22}
-    .primary:disabled{opacity:.45;cursor:not-allowed}
-    .primary:not(:disabled):hover{background:#4829ca}
-    .hint{font-size:14px;line-height:1.5;color:var(--muted);margin:-15px 0 22px}
-    .form-nav{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
-    .card{display:block}
-    .card-title{display:flex;align-items:center;justify-content:space-between;font-size:17px;font-weight:650;gap:12px}
-    .card-meta{font-size:14px;font-weight:400;color:var(--muted);margin-top:7px;line-height:1.4}
-    .detail{padding:20px;background:var(--paper);border:1px solid #ffffffbf;border-radius:15px;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:inset 0 1px 1px #fff9,0 2px 12px #40326a08}
-    .detail h2{font-size:16px;margin:0 0 8px}
-    .detail p{font-size:15px;line-height:1.55;margin:0;color:var(--muted)}
-    @media(max-width:520px){.shell{padding:25px 22px 24px}main{justify-content:flex-start;padding-top:clamp(52px,13vh,110px)}.choice{min-height:58px}h1{margin-bottom:24px}}
-    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+    :root {
+      color-scheme: dark;
+      --ink: #fffaf3;
+      --muted: #c7bfb7;
+      --accent: #ffad68;
+      --accent-deep: #ec814a;
+      --glass: #ffffff0c;
+      --border: #ffffff26;
+      --ease: cubic-bezier(.22,.8,.22,1);
+    }
+    * { box-sizing: border-box }
+    body {
+      margin: 0;
+      min-height: 100svh;
+      background: #171b1b;
+      color: var(--ink);
+      font-family: "Avenir Next", "Century Gothic", "URW Gothic", "Trebuchet MS", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      font-synthesis: none;
+      overflow-x: clip;
+    }
+    body::before, body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+    }
+    body::before {
+      background:
+        radial-gradient(ellipse at 78% 24%, #e0a46b75 0%, #98725020 24%, transparent 50%),
+        radial-gradient(ellipse at 4% 55%, #cf863f66 0%, transparent 32%),
+        radial-gradient(ellipse at 87% 87%, #a75f343b 0%, transparent 39%),
+        radial-gradient(ellipse at 17% 8%, #34585885 0%, transparent 40%),
+        radial-gradient(ellipse at 55% 100%, #44605b60 0%, transparent 51%),
+        linear-gradient(120deg, #142021, #252220 45%, #171a1b 100%);
+      background-size: cover;
+    }
+    body::after {
+      background: radial-gradient(ellipse at center, transparent 38%, #090b0b66);
+    }
+    button, input { font: inherit }
+    button { cursor: pointer; -webkit-tap-highlight-color: transparent }
+    button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px }
+    button:disabled { opacity: .42; cursor: not-allowed }
+    .stage {
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: 32px 22px;
+    }
+    .shell {
+      width: min(100%, 506px);
+      min-height: min(740px, calc(100svh - 64px));
+      padding: 34px 38px 28px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #ffffff39;
+      border-radius: 34px;
+      background: linear-gradient(135deg, #ffffff14, #ffffff06 52%, #ddc1a411), #201e1d57;
+      backdrop-filter: blur(34px) saturate(116%);
+      -webkit-backdrop-filter: blur(34px) saturate(116%);
+      box-shadow: inset 0 1px 0 #ffffff36, inset 0 -1px 0 #ffffff0e, 0 28px 90px #080a0b5e;
+      isolation: isolate;
+    }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 32px }
+    .brand { font-size: 28px; font-weight: 750; letter-spacing: -1.8px; color: var(--ink); line-height: 1 }
+    .brand span { color: var(--accent) }
+    .progress { display: flex; gap: 4px; width: 100px }
+    .progress span { flex: 1; height: 3px; border-radius: 9px; background: #ffffff22; transition: background .35s, box-shadow .35s }
+    .progress .complete { background: var(--accent); box-shadow: 0 0 11px #ffab6760 }
+    .progress[hidden] { display: none }
+    main { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 42px 0 18px; min-width: 0 }
+    .step { width: 100%; animation: arrive .48s var(--ease) both }
+    .step.reverse { animation-name: arrive-back }
+    .step.exiting { pointer-events: none; animation: leave .19s ease-in both }
+    .step.exiting.reverse { animation-name: leave-back }
+    @keyframes arrive { from { opacity: 0; transform: translateX(24px) scale(.99); filter: blur(3px) } to { opacity: 1; transform: none; filter: none } }
+    @keyframes arrive-back { from { opacity: 0; transform: translateX(-24px) scale(.99); filter: blur(3px) } to { opacity: 1; transform: none; filter: none } }
+    @keyframes leave { to { opacity: 0; transform: translateX(-20px); filter: blur(3px) } }
+    @keyframes leave-back { to { opacity: 0; transform: translateX(20px); filter: blur(3px) } }
+    h1 { font-size: clamp(30px, 6.7vw, 40px); letter-spacing: -.055em; line-height: 1.14; font-weight: 650; margin: 0 0 26px; text-wrap: balance }
+    h1:focus, h2:focus { outline: none }
+    .hint { color: var(--muted); font-size: 14px; line-height: 1.5; margin: -12px 0 22px }
+    .choices { display: grid; gap: 11px }
+    .choice, .field, .login {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      width: 100%;
+      min-height: 61px;
+      text-align: left;
+      padding: 15px 18px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: linear-gradient(140deg, #ffffff12, #ffffff06);
+      box-shadow: inset 0 1px 0 #ffffff09, 0 5px 12px #10111112;
+      color: var(--ink);
+      font-size: 16px;
+      font-weight: 550;
+      transition: background .22s, border-color .22s, transform .24s var(--ease), box-shadow .24s;
+    }
+    .choices > * { animation: float-in .48s var(--ease) both; animation-delay: calc(var(--i, 0) * 30ms + 35ms) }
+    @keyframes float-in { from { transform: translateY(12px); opacity: 0 } to { transform: none; opacity: 1 } }
+    .choice:hover, .login:hover { border-color: #ffc18d8c; background: #ffffff18; transform: translateY(-2px) }
+    .choice:active, .login:active, .primary:active, .action:active { transform: scale(.97) }
+    .choice.selected, .choice.choosing { border-color: #ffad68aa; background: #ffad681a; box-shadow: 0 0 25px #ffad6814 }
+    .icon { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 20px; height: 20px }
+    .icon svg { width: 100%; height: 100%; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round }
+    .chevron { color: var(--accent); opacity: .8 }
+    .login { min-height: 66px; font-size: 17px }
+    .provider { display: flex; align-items: center; gap: 13px }
+    .provider-mark { width: 35px; height: 35px; display: grid; place-items: center; border-radius: 11px; font-size: 18px; font-weight: 750; background: #ffffff15; border: 1px solid #ffffff20; letter-spacing: -.05em }
+    .login-title { font-size: 37px; margin-bottom: 26px }
+    .field { display: block; outline: none; appearance: none; font-weight: 450 }
+    .field::placeholder { color: #bcb4ac }
+    .primary { border: 1px solid #ffbd86; color: #342117; background: linear-gradient(125deg, #ffd097, #ffad68 55%, #f59357); padding: 16px 18px; border-radius: 18px; min-height: 58px; width: 100%; font-weight: 750; font-size: 16px; margin-top: 12px; box-shadow: 0 9px 26px #db82352b, inset 0 1px 0 #ffffff55; transition: transform .2s, filter .2s }
+    .primary:not(:disabled):hover { filter: brightness(1.075); transform: translateY(-1px) }
+    .form-nav, .nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 18px }
+    .back, .secondary, .undo { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 0; padding: 8px 0; color: var(--muted); background: none; font-size: 14px; font-weight: 550; transition: color .2s }
+    .back:hover, .secondary:hover, .undo:hover { color: var(--accent) }
+    .back .icon, .undo .icon { width: 16px; height: 16px }
+    .results h1 { margin: 0; font-size: clamp(28px, 6vw, 35px) }
+    .results-heading { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 24px }
+    .counter { white-space: nowrap; color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums }
+    .deck { position: relative; border-radius: 27px; margin: 0 0 23px; touch-action: pan-y; perspective: 1000px }
+    .deck::before, .deck::after { content: ""; position: absolute; border-radius: 26px; inset: 0 10px -9px; border: 1px solid #ffffff27; background: #b6a49221; z-index: -1; transform: scale(.96); box-shadow: 0 8px 16px #0b0c0c20 }
+    .deck::after { inset: 0 20px -16px; transform: scale(.92); opacity: .7; z-index: -2 }
+    .deck.last::before, .deck.last::after { display: none }
+    .match-card {
+      position: relative;
+      min-height: 340px;
+      border-radius: 27px;
+      border: 1px solid #ffffff4a;
+      padding: 27px 25px 25px;
+      background: radial-gradient(ellipse at top right, #f6a46630, transparent 57%), linear-gradient(132deg, #ffffff11, #ffffff00 75%), #37302d;
+      box-shadow: inset 0 1px 0 #ffffff30, 0 17px 40px #08090949;
+      overflow: hidden;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: pan-y;
+      will-change: transform;
+      transform-origin: 50% 95%;
+      animation: card-in .43s var(--ease) both;
+    }
+    @keyframes card-in { from { transform: translateY(15px) scale(.94); opacity: .4 } to { transform: none; opacity: 1 } }
+    .match-card.dragging { cursor: grabbing; animation: none; transition: none }
+    .match-card.returning { animation: none; transition: transform .28s var(--ease) }
+    .match-card.swipe-out { animation: none; transition: transform .3s var(--ease), opacity .3s }
+    .match-badge { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 750; color: #ffd7ae; padding: 7px 11px; border-radius: 100px; border: 1px solid #ffba8050; background: #ffb16d16; margin-bottom: 19px }
+    .match-badge .icon { height: 15px; width: 15px }
+    .match-card h2 { font-size: 23px; font-weight: 650; line-height: 1.24; letter-spacing: -.035em; margin: 0 0 22px; text-wrap: balance }
+    .amount { color: #ffcb97; font-size: clamp(37px, 9vw, 47px); font-weight: 700; letter-spacing: -.065em; font-variant-numeric: tabular-nums; line-height: 1; white-space: nowrap }
+    .amount-label { color: #d4c6ba; font-size: 13px; margin: 7px 0 23px }
+    .divider { height: 1px; background: #ffffff23; margin: 0 0 17px }
+    .reason-title { font-size: 12px; color: #c7b9ad; font-weight: 550; margin: 0 0 12px }
+    .reasons { list-style: none; margin: 0; padding: 0; display: grid; gap: 11px }
+    .reasons li { display: flex; align-items: center; gap: 9px; font-size: 14px; line-height: 1.35; color: #f1e7db }
+    .reasons .icon { color: var(--accent); width: 18px; height: 18px; border-radius: 50%; padding: 3px; background: #ffb16d1f }
+    .swipe-mark { position: absolute; top: 64px; left: 22px; border-radius: 10px; border: 2px solid #ffd2a2; background: #302920d9; padding: 10px 15px; font-size: 19px; font-weight: 750; letter-spacing: .08em; color: #ffd2a2; opacity: 0; transform: rotate(-10deg); pointer-events: none }
+    .swipe-mark.skip { left: auto; right: 22px; color: #eee0d6; border-color: #eee0d6; transform: rotate(10deg) }
+    .actions { display: grid; grid-template-columns: 1fr 1.4fr; gap: 10px }
+    .action { display: flex; justify-content: center; align-items: center; gap: 8px; min-height: 57px; border: 1px solid #ffffff35; background: #ffffff0a; color: var(--ink); border-radius: 17px; font-size: 15px; font-weight: 650; transition: transform .2s, background .2s }
+    .action:hover { background: #ffffff17; transform: translateY(-2px) }
+    .action.save { border-color: #ffbd86; background: linear-gradient(125deg, #ffd097, #ffad68 55%, #f59357); color: #38251a; box-shadow: 0 8px 24px #db82352c, inset 0 1px 0 #ffffff55 }
+    .action.save:hover { background: #ffc28c }
+    .results .nav { margin-top: 13px }
+    .small-link { min-height: 38px }
+    .finish { display: grid; gap: 12px }
+    .saved-row { border: 1px solid var(--border); border-radius: 17px; padding: 15px 17px; display: flex; align-items: center; justify-content: space-between; gap: 12px; background: #ffffff0b; font-size: 14px }
+    .saved-row strong { color: #ffcb97; white-space: nowrap; font-size: 15px }
+    .sr-only { border: 0; clip: rect(0,0,0,0); height: 1px; width: 1px; overflow: hidden; padding: 0; position: absolute; white-space: nowrap }
+    @media (max-width: 560px) {
+      .stage { padding: 0; display: flex }
+      .shell { flex: 1; min-height: 100svh; width: 100%; border: 0; border-radius: 0; background: #201e1d35; padding: max(26px, env(safe-area-inset-top)) 23px max(22px, env(safe-area-inset-bottom)); box-shadow: none }
+      main { padding: 40px 0 22px }
+      .match-card { padding: 24px 20px; min-height: 326px }
+      .amount { font-size: 44px }
+      .results-heading { margin-bottom: 21px }
+    }
+    @media (max-width: 380px) { .shell { padding-inline: 17px } .match-card { padding: 20px 17px } .amount { font-size: 38px } .match-card h2 { font-size: 21px } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important } }
   </style>
 </head>
 <body>
-  <div class="shell">
-    <header>
-      <div class="brand">fønding</div>
-      <div class="progress" id="progress" role="progressbar" aria-label="Fremdrift" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div>
-    </header>
-    <main id="main"></main>
+  <div class="stage">
+    <div class="shell">
+      <header>
+        <div class="brand">fønding<span>.</span></div>
+        <div class="progress" id="progress" role="progressbar" aria-label="Fremdrift" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" hidden></div>
+      </header>
+      <main id="main"></main>
+      <div class="sr-only" id="announcement" role="status" aria-live="polite"></div>
+    </div>
   </div>
   <script>
-    // This prototype runs entirely in memory. It sends and stores no answers.
+    // Static prototype: no real authentication, network calls, or saved personal data.
+    // Prototype grants reference public fund names; amounts are fabricated for interaction testing.
     const answers = {};
     const main = document.getElementById('main');
     const progress = document.getElementById('progress');
-    let current = 'purpose';
-    let activeExample = null;
-
+    const announcement = document.getElementById('announcement');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let current = 'login', busy = false, matches = [], cursor = 0, decisions = [];
+    
     const questions = {
       purpose: { title:'Hva trenger du støtte til?', options:[['norway','Studier i Norge'],['abroad','Hele graden i utlandet'],['exchange','Utveksling'],['unsure','Vet ikke ennå']] },
       level: { title:'Hvilket nivå studerer du på?', options:[['bachelor','Bachelor'],['master','Master'],['phd','Doktorgrad'],['other','Annet']] },
@@ -70,95 +222,249 @@
       country: { title:'I hvilket land skal du studere?', placeholder:'Skriv landet', type:'text' },
       connection: { title:'Hvor vokste du opp?', hint:'Noen legater støtter studenter fra bestemte kommuner.', placeholder:'Skriv kommunen', type:'text' }
     };
-
-    function flow(){
-      const steps=['purpose','level','subject'];
-      if(['abroad','exchange'].includes(answers.purpose)) steps.push('country');
-      return [...steps,'connection'];
+    
+    const icons = {
+      arrow:'<path d="M5 12h14m-6-6 6 6-6 6"/>',
+      back:'<path d="M19 12H5m6 6-6-6 6-6"/>',
+      check:'<path d="m5 12 4 4L19 6"/>',
+      close:'<path d="m6 6 12 12M18 6 6 18"/>',
+      heart:'<path d="M20.8 8.5c0 4.6-8.8 10-8.8 10S3.2 13.1 3.2 8.5a4.5 4.5 0 0 1 8.8-1.3 4.5 4.5 0 0 1 8.8 1.3Z"/>',
+      sparkle:'<path d="m12 2 2.6 6.4L21 11l-6.4 2.6L12 20l-2.6-6.4L3 11l6.4-2.6L12 2Z"/><path d="M20 2v4M18 4h4"/>',
+      undo:'<path d="M8 5 3 10l5 5M3 10h10a6 6 0 0 1 6 6v2"/>'
+    };
+    function icon(name, extra='') {
+      const node = make('span', undefined, 'icon '+extra);
+      node.setAttribute('aria-hidden','true');
+      node.innerHTML = '<svg viewBox="0 0 24 24">'+icons[name]+'</svg>';
+      return node;
     }
-    function updateProgress(){
-      const steps=flow();
-      const position=steps.indexOf(current);
-      const value=position<0?100:((position+1)/steps.length)*100;
-      progress.firstElementChild.style.width=`${value}%`;
-      progress.setAttribute('aria-valuenow',Math.round(value));
-    }
-    function make(tag,text,className){
-      const el=document.createElement(tag);
-      if(text!==undefined) el.textContent=text;
-      if(className) el.className=className;
+    function make(tag, value, className) {
+      const el = document.createElement(tag);
+      if (value !== undefined) el.textContent = value;
+      if (className) el.className = className;
       return el;
     }
-    function button(text,className,action){
-      const el=make('button',text,className);
-      el.type='button';el.addEventListener('click',action);return el;
+    function button(value, className, action) {
+      const el = make('button',value,className);
+      el.type = 'button';
+      el.addEventListener('click', action);
+      return el;
     }
-    function previous(){
-      if(current==='detail'){current='results';render();return;}
+    function flow() {
+      const steps = ['purpose','level','subject'];
+      if (['abroad','exchange'].includes(answers.purpose)) steps.push('country');
+      return [...steps,'connection'];
+    }
+    function updateProgress() {
+      const steps = flow();
+      const index = steps.indexOf(current);
+      progress.hidden = index < 0;
+      progress.replaceChildren(...steps.map((_,i)=>make('span',undefined,i<=index?'complete':'')));
+      progress.setAttribute('aria-valuenow',index < 0 ? 100 : Math.round((index+1)/steps.length*100));
+    }
+    function title(section, value) {
+      const el = make('h1',value);
+      el.tabIndex = -1;
+      section.append(el);
+      return el;
+    }
+    function navigate(destination, reverse=false) {
+      if (busy) return;
+      busy = true;
+      const old = main.firstElementChild;
+      if (old) {
+        old.inert = true;
+        old.classList.toggle('reverse',reverse);
+        old.classList.add('exiting');
+      }
+      setTimeout(()=>{
+        current=destination;
+        render(true,reverse);
+        busy=false;
+      },reducedMotion.matches?0:185);
+    }
+    function previous() {
+      if (busy) return;
       const steps=flow();
-      if(current==='results'){current=steps[steps.length-1];render();return;}
+      if (current==='results'||current==='finish') { navigate(steps.at(-1),true); return; }
       const pos=steps.indexOf(current);
-      if(pos>0){current=steps[pos-1];render();}
+      if (pos>0) navigate(steps[pos-1],true);
+      else if (pos===0) navigate('login',true);
     }
-    function next(value){
-      if(current==='purpose'&&answers.purpose!==value)delete answers.country;
+    function next(value, option) {
+      if (busy) return;
+      if (option) option.classList.add('choosing');
+      if (current==='purpose' && answers.purpose!==value) delete answers.country;
       answers[current]=value;
-      const steps=flow();
-      current=steps[steps.indexOf(current)+1]||'results';
-      render();
+      const steps=flow(), destination=steps[steps.indexOf(current)+1]||'results';
+      if (destination==='results') {
+        matches=buildMatches();
+        cursor=0;
+        decisions=[];
+      }
+      navigate(destination);
     }
-    function reset(){
+    function reset() {
+      if (busy) return;
       Object.keys(answers).forEach(key=>delete answers[key]);
-      current='purpose';activeExample=null;render();
+      matches=[]; cursor=0; decisions=[];
+      navigate('login',true);
     }
-    function title(container,text){
-      const el=make('h1',text);el.tabIndex=-1;container.append(el);return el;
+    function back(section) {
+      const row=make('div',undefined,'nav');
+      const btn=button(undefined,'back',previous);
+      btn.append(icon('back'),make('span','Tilbake'));
+      row.append(btn);section.append(row);return row;
     }
-    function back(container){
-      const row=make('div',undefined,'nav');row.append(button('← Tilbake','back',previous));container.append(row);
+    function buildMatches() {
+      // Relevance rules for the demo only, not real eligibility decisions.
+      const result=[];
+      const add=(name,amount,reasons)=>result.push({name,amount,reasons});
+      const abroad=['abroad','exchange'].includes(answers.purpose);
+      const higher=['bachelor','master','phd'].includes(answers.level);
+      const management=answers.subject==='business';
+      const master=answers.level==='master';
+      const place=(answers.connection||'').toLowerCase();
+      if (abroad && management && higher) add('Jansons Legat',50000,['Utenlandsstudier','Økonomi og ledelse','Relevans for norsk næringsliv']);
+      if (master && abroad) add('Postgrad Solutions Study Bursary',25000,['Masterstudier','Studier i utlandet']);
+      if (/asker|hurum|røyken/.test(place) && higher) add('Adam Ciesielskis stiftelse',40000,['Tilknytning til Asker','Høyere utdanning']);
+      if (/stavanger|rogaland|sandnes|suldal|haugesund/.test(place) && abroad && management && higher) add('Peder Smedvigs Stipendiefond',60000,['Studier i utlandet','Økonomifag','Tilknytning til Rogaland']);
+      if (higher) add('Else og Peter Vogts legat',30000,['Høyere utdanning',master?'Mastergrad':answers.level==='phd'?'Doktorgrad':'Bachelorgrad']);
+      return result;
     }
-    function examples(){
-      const a=[];
-      if(answers.purpose==='exchange')a.push({name:'Støtte til utveksling',reason:'For utvekslingsopphold',next:'Sjekk om lærestedet har en egen søknadsordning.'});
-      if(answers.purpose==='abroad')a.push({name:'Støtte til utenlandsstudier',reason:'For en hel grad i utlandet',next:'Kontroller hvilke utdanninger og land ordningen dekker.'});
-      if(answers.purpose==='norway')a.push({name:'Utdanningsstipend',reason:'For studier i Norge',next:'Sjekk krav til utdanningsnivå og dokumentasjon.'});
-      a.push({name:'Legat for ditt fagområde',reason:'Basert på fagområdet ditt',next:'Kontroller fagkriteriene og hvilke vedlegg som kreves.'});
-      if(answers.connection)a.push({name:'Lokalt utdanningslegat',reason:'Basert på geografisk tilknytning',next:'Sjekk hvilket krav legatet stiller til lokal tilknytning.'});
-      return a;
+    const money = amount => amount.toLocaleString('nb-NO')+' kr';
+    function renderMatch(section) {
+      const row=make('div',undefined,'results-heading');
+      const heading=make('h1','Dine matcher');heading.tabIndex=-1;
+      row.append(heading,make('span',(cursor+1)+' av '+matches.length,'counter'));
+      section.append(row);
+      const item=matches[cursor];
+      const deck=make('div',undefined,'deck'+(cursor===matches.length-1?' last':''));
+      const card=make('article',undefined,'match-card');
+      card.setAttribute('aria-label',item.name+', '+money(item.amount));
+      const badge=make('div',undefined,'match-badge');badge.append(icon('sparkle'),make('span',item.reasons.length>=3?'Kjempematch':'Sterk match'));
+      const name=make('h2',item.name);
+      const reasons=make('ul',undefined,'reasons');
+      item.reasons.forEach(reason=>{const li=make('li');li.append(icon('check'),make('span',reason));reasons.append(li);});
+      const saveMark=make('div','LAGRE','swipe-mark');
+      const skipMark=make('div','HOPP OVER','swipe-mark skip');
+      card.append(badge,name,make('div',money(item.amount),'amount'),make('p','Søknadsbeløp','amount-label'),make('div',undefined,'divider'),make('p','Derfor passer det for deg','reason-title'),reasons,saveMark,skipMark);
+      deck.append(card);section.append(deck);
+
+      let drag=null;
+      function decide(save, dy=0) {
+        if (busy || current!=='results') return;
+        busy=true;drag=null;
+        card.classList.remove('dragging','returning');
+        card.classList.add('swipe-out');
+        const direction=save?1:-1;
+        (save?saveMark:skipMark).style.opacity='1';
+        card.style.transform='translate('+direction*Math.max(window.innerWidth*.7,460)+'px,'+dy+'px) rotate('+direction*22+'deg)';
+        card.style.opacity='0';
+        setTimeout(()=>{
+          decisions.push({item,save});
+          cursor++;
+          announcement.textContent=save?item.name+' lagret':item.name+' hoppet over';
+          current=cursor<matches.length?'results':'finish';
+          busy=false;
+          render(true);
+        },reducedMotion.matches?0:300);
+      }
+      function cancelDrag() {
+        drag=null;
+        card.classList.remove('dragging');
+        card.classList.add('returning');
+        card.style.transform='';
+        saveMark.style.opacity=skipMark.style.opacity='0';
+      }
+      card.addEventListener('pointerdown',event=>{
+        if (busy || !event.isPrimary || event.button!==0) return;
+        drag={x:event.clientX,y:event.clientY,id:event.pointerId,dx:0,dy:0};
+        card.classList.remove('returning');
+        card.classList.add('dragging');
+        card.setPointerCapture(event.pointerId);
+      });
+      card.addEventListener('pointermove',event=>{
+        if(!drag||drag.id!==event.pointerId)return;
+        drag.dx=event.clientX-drag.x;drag.dy=event.clientY-drag.y;
+        if(Math.abs(drag.dy)>Math.abs(drag.dx)*1.35&&Math.abs(drag.dy)>25){cancelDrag();return;}
+        const x=drag.dx,y=drag.dy*.24;
+        card.style.transform='translate('+x+'px,'+y+'px) rotate('+Math.max(-16,Math.min(16,x/10))+'deg)';
+        saveMark.style.opacity=Math.max(0,Math.min(1,x/92));
+        skipMark.style.opacity=Math.max(0,Math.min(1,-x/92));
+      });
+      card.addEventListener('pointerup',event=>{
+        if(!drag||drag.id!==event.pointerId)return;
+        const {dx,dy}=drag;
+        if(Math.abs(dx)>Math.min(90,card.offsetWidth*.25))decide(dx>0,dy*.3);
+        else cancelDrag();
+      });
+      card.addEventListener('pointercancel',()=>{if(drag)cancelDrag();});
+      card.addEventListener('lostpointercapture',()=>{if(drag)cancelDrag();});
+      const actions=make('div',undefined,'actions');
+      const skip=button(undefined,'action',()=>decide(false));skip.append(icon('close'),make('span','Hopp over'));
+      const save=button(undefined,'action save',()=>decide(true));save.append(icon('heart'),make('span','Lagre'));
+      actions.append(skip,save);section.append(actions);
+      const nav=back(section);
+      if (decisions.length) nav.append(undoButton());
+      section.addEventListener('keydown',event=>{
+        if(event.key==='ArrowLeft'||event.key==='ArrowRight'){event.preventDefault();decide(event.key==='ArrowRight');}
+      });
+      return heading;
     }
-    function render(focus=true){
+    function undoButton() {
+      const btn=button(undefined,'undo',()=>{
+        if(busy||!decisions.length)return;
+        decisions.pop();cursor--;current='results';render(true,true);
+      });
+      btn.append(icon('undo'),make('span','Angre'));return btn;
+    }
+    function render(focus=true,reverse=false) {
       updateProgress();
-      const section=make('section',undefined,'step');
+      const section=make('section',undefined,'step'+(reverse?' reverse':''));
       let heading;
-      if(current==='results'){
-        heading=title(section,'Dine muligheter');
-        section.append(make('p','Eksempelvisning. Legatdatabasen er ikke tilkoblet.','hint'));
+      if(current==='login'){
+        heading=title(section,'Logg inn');
+        heading.className='login-title';
         const list=make('div',undefined,'choices');
-        examples().forEach(item=>{
-          const card=button(undefined,'card',()=>{activeExample=item;current='detail';render();});
-          const row=make('div',undefined,'card-title');row.append(make('span',item.name),make('span','›','chevron'));
-          card.append(row,make('div',item.reason,'card-meta'));list.append(card);
+        [['Feide','F'],['BankID','B']].forEach(([provider,letter],i)=>{
+          const opt=button(undefined,'login',()=>navigate('purpose'));
+          opt.style.setProperty('--i',i);
+          const group=make('span',undefined,'provider');
+          group.append(make('span',letter,'provider-mark'),make('span','Logg inn med '+provider));
+          opt.append(group,icon('arrow','chevron'));
+          list.append(opt);
         });
-        section.append(list);back(section);
-        section.append(button('Start på nytt','secondary',reset));
-      }else if(current==='detail'){
-        heading=title(section,activeExample.name);
-        section.append(make('p','Eksempel på neste steg.','hint'));
-        const detail=make('div',undefined,'detail');detail.append(make('h2','Slik søker du'),make('p',activeExample.next));section.append(detail);back(section);
+        section.append(list);
+      }else if(current==='results'&&matches.length){
+        section.classList.add('results');
+        heading=renderMatch(section);
+      }else if(current==='results'||current==='finish'){
+        const saved=decisions.filter(d=>d.save).map(d=>d.item);
+        heading=title(section,!matches.length?'Ingen matcher ennå':saved.length?saved.length+' lagrede '+(saved.length===1?'legat':'legater'):'Du har sett alle matchene');
+        const list=make('div',undefined,'finish');
+        saved.forEach(item=>{
+          const row=make('div',undefined,'saved-row');
+          row.append(make('span',item.name),make('strong',money(item.amount)));list.append(row);
+        });
+        section.append(list);
+        if(!matches.length)section.append(make('p','Prøv å endre svarene dine.','hint'));
+        section.append(button('Start på nytt','primary',reset));
+        const nav=back(section);
+        if(decisions.length)nav.append(undoButton());
       }else{
         const q=questions[current];
         heading=title(section,q.title);
         if(q.hint)section.append(make('p',q.hint,'hint'));
         if(q.options){
           const list=make('div',undefined,'choices');
-          q.options.forEach(([value,label])=>{
-            const selected=answers[current]===value;
-            const option=button(undefined,'choice'+(selected?' selected':''),()=>next(value));
-            option.append(make('span',label),make('span','›','chevron'));
+          q.options.forEach(([value,label],i)=>{
+            const option=button(undefined,'choice'+(answers[current]===value?' selected':''),()=>next(value,option));
+            option.style.setProperty('--i',i);
+            option.append(make('span',label),icon('arrow','chevron'));
             list.append(option);
           });
-          section.append(list);
-          if(current!=='purpose')back(section);
+          section.append(list);back(section);
         }else{
           const form=make('form');
           const input=make('input',undefined,'field');
@@ -167,7 +473,8 @@
           input.addEventListener('input',()=>{submit.disabled=!input.value.trim();});
           form.addEventListener('submit',event=>{event.preventDefault();if(input.value.trim())next(input.value.trim());});
           form.append(input,submit);section.append(form);
-          const nav=make('div',undefined,'form-nav');nav.append(button('← Tilbake','back',previous),button('Hopp over','secondary',()=>next('')));section.append(nav);
+          const nav=back(section);nav.className='form-nav';
+          nav.append(button('Hopp over','secondary',()=>next('')));
         }
       }
       main.replaceChildren(section);
